@@ -3,38 +3,139 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>hello world — bobbay.com</title>
+  <title>hello world — bobbay</title>
   <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-  <div class="terminal">
-    <div class="terminal-header">
-      <span class="dot red"></span>
-      <span class="dot yellow"></span>
-      <span class="dot green"></span>
-      <span class="title">bobby@bobbay.com ~/posts</span>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <a href="../index.html" class="nav-logo">bobbay <span>|</span></a>
+    <ul class="nav-links">
+      <li><a href="../blogs.html">blogs</a></li>
+      <li><a href="../about.html">about</a></li>
+    </ul>
+  </nav>
+
+  <!-- Article Header -->
+  <header class="article-header">
+    <div class="breadcrumb">
+      <a href="../index.html">~/stories</a> / hello-world.md
     </div>
-    <div class="terminal-body">
-      <div class="line">
-        <span class="prompt">$</span> cat hello-world.md
+    <h1>Hello World</h1>
+    <div class="article-meta">
+      <span>2026-03-25</span>
+      <span>1 min read</span>
+    </div>
+  </header>
+
+  <!-- Article Body -->
+  <main class="article-body">
+    <p>
+      this is the first post. if you're reading this, the blog works.
+    </p>
+
+    <p>
+      built with plain html, hosted on github pages, styled like a terminal
+      because that's where i live anyway.
+    </p>
+
+    <h2>why a terminal blog?</h2>
+
+    <p>
+      most blogs are overengineered. this one is four files. no build step,
+      no javascript framework, no CMS. just html and css deployed to github pages
+      with a custom domain.
+    </p>
+
+    <blockquote>
+      the best interface is the one you already know.
+    </blockquote>
+
+    <p>
+      adding a new post means creating an html file in <code>posts/</code>
+      and adding a row to the table on the index. that's it.
+    </p>
+
+    <h2>the stack</h2>
+
+    <pre><code><span class="cm">// the entire tech stack</span>
+<span class="kw">const</span> blog <span class="op">=</span> {
+  hosting<span class="op">:</span>  <span class="str">'github pages'</span>,
+  domain<span class="op">:</span>   <span class="str">'bobbay.com'</span>,
+  css<span class="op">:</span>      <span class="str">'vanilla'</span>,
+  js<span class="op">:</span>       <span class="str">'barely any'</span>,
+  build<span class="op">:</span>    <span class="str">'none'</span>,
+};</code></pre>
+
+    <p>
+      more posts soon. or not. we'll see.
+    </p>
+
+    <!-- Article Nav -->
+    <nav class="article-nav">
+      <div>
+        <!-- empty — no previous post -->
       </div>
-      <div class="output post-content">
-        <h1># hello world</h1>
-        <p><em>2026-03-25</em></p>
-        <p>
-          this is the first post. if you're reading this, the blog works.
-        </p>
-        <p>
-          built with plain html, hosted on github pages, styled like a terminal because that's where i live anyway.
-        </p>
-        <p>
-          more posts soon. or not. we'll see.
-        </p>
+      <div style="text-align: right;">
+        <!-- empty — no next post yet -->
       </div>
-      <div class="line">
-        <span class="prompt">$</span> <a href="../index.html" class="back-link">cd ..</a>
+    </nav>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <span class="footer-logo">bobbay</span>
+    <ul class="footer-links">
+      <li><a href="#">rss</a></li>
+      <li><a href="#">github</a></li>
+      <li><a href="https://x.com/bobbay_b">twitter</a></li>
+    </ul>
+  </footer>
+
+  <!-- Help Overlay -->
+  <div class="help-overlay" id="helpOverlay">
+    <div class="help-box">
+      <div class="help-title">
+        <h2>~/help</h2>
+        <span class="cursor"></span>
       </div>
+      <div class="help-grid">
+        <span class="cmd">ls&lt;n&gt; &lt;post-name&gt;</span>
+        <span class="desc">navigate to post</span>
+
+        <span class="cmd">ls</span>
+        <span class="desc">all stories</span>
+
+        <span class="cmd">search &lt;keyword&gt;</span>
+        <span class="desc">find posts</span>
+
+        <span class="cmd">about</span>
+        <span class="desc">go to about page</span>
+
+        <span class="cmd">clear</span>
+        <span class="desc">clear terminal</span>
+
+        <span class="cmd">help</span>
+        <span class="desc">show this panel</span>
+      </div>
+      <div class="help-dismiss">press esc or type 'close' to dismiss</div>
     </div>
   </div>
+
+  <script>
+    function toggleHelp() {
+      document.getElementById('helpOverlay').classList.toggle('active');
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        document.getElementById('helpOverlay').classList.remove('active');
+      }
+    });
+    document.getElementById('helpOverlay').addEventListener('click', function(e) {
+      if (e.target === this) this.classList.remove('active');
+    });
+  </script>
+
 </body>
 </html>

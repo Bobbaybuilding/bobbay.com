@@ -3,47 +3,392 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>bobbay.com</title>
-  <link rel="stylesheet" href="style.css">
+  <title>bobbay</title>
+  <link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
-  <div class="terminal">
-    <div class="terminal-header">
-      <span class="dot red"></span>
-      <span class="dot yellow"></span>
-      <span class="dot green"></span>
-      <span class="title">bobby@bobbay.com</span>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">bobbay <span>|</span></a>
+    <ul class="nav-links">
+      <li><a href="blogs.html">blogs</a></li>
+      <li><a href="about.html">about</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>bobbay</h1>
+    <p>words on systems, interfaces &amp; quiet infrastructure</p>
+  </section>
+
+  <!-- Interactive Terminal -->
+  <div class="terminal" id="terminal">
+    <div class="terminal-bar">
+      <div class="dots">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+      </div>
+      <div class="terminal-tabs">
+        <a href="#" class="active" onclick="runCommand('ls'); return false;">all_posts</a>
+        <a href="#" onclick="runCommand('ls --recent'); return false;">recent</a>
+        <a href="#" onclick="runCommand('tags'); return false;">tags</a>
+      </div>
     </div>
-    <div class="terminal-body">
-      <div class="line">
-        <span class="prompt">$</span> cat welcome.txt
-      </div>
-      <div class="output">
-        <pre>
-  _           _     _
- | |__   ___ | |__ | |__   __ _ _   _
- | '_ \ / _ \| '_ \| '_ \ / _` | | | |
- | |_) | (_) | |_) | |_) | (_| | |_| |
- |_.__/ \___/|_.__/|_.__/ \__,_|\__, |
-                                 |___/
-        </pre>
-      </div>
-      <div class="line">
-        <span class="prompt">$</span> whoami
-      </div>
-      <div class="output">
-        Bobby Bola — builder, thinker, shipper.
-      </div>
-      <div class="line">
-        <span class="prompt">$</span> ls posts/
-      </div>
-      <div class="output posts">
-        <a href="posts/hello-world.html">2026-03-25_hello-world.md</a>
-      </div>
-      <div class="line">
-        <span class="prompt">$</span> <span class="cursor">_</span>
+    <div class="terminal-body" id="terminalBody">
+      <div id="output"></div>
+      <div class="input-line" id="inputLine">
+        <span class="path">~/bobbay</span>
+        <span class="prompt">$</span>
+        <input type="text" id="cmdInput" spellcheck="false" autocomplete="off" autofocus>
       </div>
     </div>
   </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <span class="footer-logo">bobbay</span>
+    <ul class="footer-links">
+      <li><a href="#">rss</a></li>
+      <li><a href="#">github</a></li>
+      <li><a href="https://x.com/bobbay_b">twitter</a></li>
+    </ul>
+  </footer>
+
+  <script>
+    // === POST DATABASE ===
+    const posts = [
+      {
+        slug: 'hello-world',
+        title: 'Hello World',
+        file: 'hello-world.md',
+        size: '2.1k',
+        date: '2026-03-25',
+        tags: ['meta', 'first'],
+        preview: 'this is the first post. if you\'re reading this, the blog works.',
+        url: 'posts/hello-world.html'
+      }
+    ];
+
+    // === STATE ===
+    const history = [];
+    let historyIndex = -1;
+
+    // === DOM ===
+    const output = document.getElementById('output');
+    const cmdInput = document.getElementById('cmdInput');
+    const terminalBody = document.getElementById('terminalBody');
+
+    // === FOCUS ===
+    document.getElementById('terminal').addEventListener('click', () => cmdInput.focus());
+
+    // === INPUT HANDLING ===
+    cmdInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        const cmd = this.value.trim();
+        if (cmd) {
+          history.push(cmd);
+          historyIndex = history.length;
+          printLine(`<span class="path">~/bobbay</span> <span class="prompt">$</span> ${escapeHtml(cmd)}`);
+          processCommand(cmd);
+        }
+        this.value = '';
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (historyIndex > 0) {
+          historyIndex--;
+          this.value = history[historyIndex];
+        }
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (historyIndex < history.length - 1) {
+          historyIndex++;
+          this.value = history[historyIndex];
+        } else {
+          historyIndex = history.length;
+          this.value = '';
+        }
+      } else if (e.key === 'Tab') {
+        e.preventDefault();
+        autocomplete(this);
+      }
+    });
+
+    // === COMMAND ROUTER ===
+    function processCommand(raw) {
+      const parts = raw.split(/\s+/);
+      const cmd = parts[0].toLowerCase();
+      const args = parts.slice(1);
+
+      switch (cmd) {
+        case 'ls':        cmdLs(args); break;
+        case 'cat':       cmdCat(args); break;
+        case 'open':      cmdOpen(args); break;
+        case 'cd':        cmdCd(args); break;
+        case 'help':      cmdHelp(); break;
+        case 'about':     cmdAbout(); break;
+        case 'whoami':    cmdWhoami(); break;
+        case 'clear':     cmdClear(); break;
+        case 'tags':      cmdTags(); break;
+        case 'search':    cmdSearch(args); break;
+        case 'history':   cmdHistory(); break;
+        case 'date':      cmdDate(); break;
+        case 'echo':      printOutput(args.join(' ')); break;
+        case 'pwd':       printOutput('/home/bobbay/blog'); break;
+        case 'neofetch':  cmdNeofetch(); break;
+        default:
+          printOutput(`<span class="error">command not found: ${escapeHtml(cmd)}</span>\ntype <span class="accent">help</span> for available commands`);
+      }
+
+      scrollToBottom();
+    }
+
+    // === COMMANDS ===
+
+    function cmdLs(args) {
+      let list = [...posts];
+
+      if (args.includes('--recent')) {
+        list = list.sort((a, b) => b.date.localeCompare(a.date)).slice(0, 5);
+      }
+
+      if (list.length === 0) {
+        printOutput('no posts found.');
+        return;
+      }
+
+      let table = `<table class="file-table">
+        <thead><tr><th>filename</th><th>size</th><th>modified</th></tr></thead>
+        <tbody>`;
+
+      list.forEach(p => {
+        table += `<tr>
+          <td class="filename"><a href="${p.url}">${p.file}</a></td>
+          <td class="size">${p.size}</td>
+          <td class="date">${p.date}</td>
+        </tr>`;
+      });
+
+      table += '</tbody></table>';
+      printOutput(table);
+    }
+
+    function cmdCat(args) {
+      if (!args.length) {
+        printOutput('usage: cat &lt;filename&gt;');
+        return;
+      }
+
+      const name = args[0].replace('.md', '').replace('.html', '');
+      const post = posts.find(p => p.slug === name || p.file === args[0]);
+
+      if (!post) {
+        printOutput(`<span class="error">cat: ${escapeHtml(args[0])}: no such file</span>`);
+        return;
+      }
+
+      printOutput(`<div class="cat-output">
+        <span class="accent"># ${escapeHtml(post.title)}</span>
+        <span class="meta">${post.date} · ${post.size} · [${post.tags.join(', ')}]</span>
+        <br>${escapeHtml(post.preview)}
+        <br><br><a href="${post.url}" class="read-link">open full post →</a>
+      </div>`);
+    }
+
+    function cmdOpen(args) {
+      if (!args.length) {
+        printOutput('usage: open &lt;filename&gt;');
+        return;
+      }
+
+      const name = args[0].replace('.md', '').replace('.html', '');
+      const post = posts.find(p => p.slug === name || p.file === args[0]);
+
+      if (!post) {
+        printOutput(`<span class="error">open: ${escapeHtml(args[0])}: no such file</span>`);
+        return;
+      }
+
+      printOutput(`opening ${post.file}...`);
+      setTimeout(() => window.location.href = post.url, 400);
+    }
+
+    function cmdCd(args) {
+      if (!args.length || args[0] === '~' || args[0] === '/') {
+        printOutput('already home.');
+      } else if (args[0] === 'posts' || args[0] === 'stories') {
+        cmdLs([]);
+      } else {
+        printOutput(`<span class="error">cd: ${escapeHtml(args[0])}: not a directory</span>`);
+      }
+    }
+
+    function cmdHelp() {
+      printOutput(`<div class="help-inline">
+        <span class="accent">available commands:</span>
+
+  <span class="cmd-name">ls</span>              list all posts
+  <span class="cmd-name">ls --recent</span>     show recent posts
+  <span class="cmd-name">cat &lt;file&gt;</span>      preview a post
+  <span class="cmd-name">open &lt;file&gt;</span>     open full post
+  <span class="cmd-name">search &lt;term&gt;</span>   search posts
+  <span class="cmd-name">tags</span>            list all tags
+  <span class="cmd-name">about</span>           about me
+  <span class="cmd-name">whoami</span>          who am i
+  <span class="cmd-name">neofetch</span>        system info
+  <span class="cmd-name">history</span>         command history
+  <span class="cmd-name">clear</span>           clear terminal
+  <span class="cmd-name">date</span>            current date
+  <span class="cmd-name">help</span>            this message
+      </div>`);
+    }
+
+    function cmdAbout() {
+      printOutput(`<div class="cat-output">
+        <span class="accent">bobby bola</span>
+        builder, thinker, shipper.
+
+  writing about systems, interfaces,
+  and the quiet infrastructure behind things.
+
+        <a href="about.html" class="read-link">full bio →</a>
+      </div>`);
+    }
+
+    function cmdWhoami() {
+      printOutput('bobby — <span class="accent">builder of things</span>');
+    }
+
+    function cmdClear() {
+      output.innerHTML = '';
+    }
+
+    function cmdTags() {
+      const tagMap = {};
+      posts.forEach(p => {
+        p.tags.forEach(t => {
+          tagMap[t] = (tagMap[t] || 0) + 1;
+        });
+      });
+
+      let result = '<span class="accent">tags:</span>\n';
+      Object.entries(tagMap).sort((a, b) => b[1] - a[1]).forEach(([tag, count]) => {
+        result += `  <span class="cmd-name">${tag}</span> (${count})\n`;
+      });
+
+      printOutput(result);
+    }
+
+    function cmdSearch(args) {
+      if (!args.length) {
+        printOutput('usage: search &lt;keyword&gt;');
+        return;
+      }
+
+      const q = args.join(' ').toLowerCase();
+      const results = posts.filter(p =>
+        p.title.toLowerCase().includes(q) ||
+        p.preview.toLowerCase().includes(q) ||
+        p.tags.some(t => t.includes(q))
+      );
+
+      if (!results.length) {
+        printOutput(`no results for "${escapeHtml(args.join(' '))}"`);
+        return;
+      }
+
+      printOutput(`<span class="accent">${results.length} result(s):</span>`);
+      results.forEach(p => {
+        printOutput(`  <a href="${p.url}" class="read-link">${p.file}</a> — ${escapeHtml(p.preview).slice(0, 60)}...`);
+      });
+    }
+
+    function cmdHistory() {
+      if (!history.length) {
+        printOutput('no commands in history.');
+        return;
+      }
+
+      let result = '';
+      history.forEach((cmd, i) => {
+        result += `  <span class="meta">${String(i + 1).padStart(3)}</span>  ${escapeHtml(cmd)}\n`;
+      });
+      printOutput(result);
+    }
+
+    function cmdDate() {
+      printOutput(new Date().toLocaleString());
+    }
+
+    function cmdNeofetch() {
+      printOutput(`<div class="neofetch">
+<span class="accent">        ╭──────╮</span>        <span class="cmd-name">bobbay</span>@<span class="cmd-name">blog</span>
+<span class="accent">        │      │</span>        ──────────
+<span class="accent">        │  bb  │</span>        <span class="meta">os:</span>     github pages
+<span class="accent">        │      │</span>        <span class="meta">host:</span>   bobbay.com
+<span class="accent">        ╰──────╯</span>        <span class="meta">stack:</span>  html + css + js
+<span class="accent">                </span>        <span class="meta">theme:</span>  terminal dark
+<span class="accent">   ╭────────────────╮</span>  <span class="meta">posts:</span>  ${posts.length}
+<span class="accent">   ╰────────────────╯</span>  <span class="meta">uptime:</span> since 2026
+      </div>`);
+    }
+
+    // === AUTOCOMPLETE ===
+    function autocomplete(input) {
+      const val = input.value.trim();
+      const parts = val.split(/\s+/);
+
+      if (parts.length === 1) {
+        const cmds = ['ls', 'cat', 'open', 'cd', 'help', 'about', 'whoami', 'clear', 'tags', 'search', 'history', 'date', 'echo', 'pwd', 'neofetch'];
+        const match = cmds.find(c => c.startsWith(parts[0].toLowerCase()));
+        if (match) input.value = match;
+      } else if (['cat', 'open'].includes(parts[0].toLowerCase())) {
+        const partial = parts[1] || '';
+        const match = posts.find(p => p.file.startsWith(partial) || p.slug.startsWith(partial));
+        if (match) input.value = parts[0] + ' ' + match.file;
+      }
+    }
+
+    // === HELPERS ===
+    function printLine(html) {
+      const div = document.createElement('div');
+      div.className = 'history-line';
+      div.innerHTML = html;
+      output.appendChild(div);
+    }
+
+    function printOutput(html) {
+      const div = document.createElement('div');
+      div.className = 'output-block';
+      div.innerHTML = html;
+      output.appendChild(div);
+    }
+
+    function scrollToBottom() {
+      terminalBody.scrollTop = terminalBody.scrollHeight;
+    }
+
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    // === PUBLIC (for nav clicks) ===
+    function runCommand(cmd) {
+      cmdInput.value = cmd;
+      cmdInput.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+    }
+
+    // === BOOT ===
+    printOutput(`<span class="meta">welcome to bobbay.com</span>
+type <span class="accent">help</span> for commands, or <span class="accent">ls</span> to browse posts.`);
+    printLine('<span class="path">~/bobbay</span> <span class="prompt">$</span> ls');
+    cmdLs([]);
+    cmdInput.focus();
+  </script>
+
 </body>
 </html>

@@ -129,12 +129,10 @@
         case 'cd':        cmdCd(args); break;
         case 'help':      cmdHelp(); break;
         case 'about':     cmdAbout(); break;
-        case 'whoami':    cmdWhoami(); break;
         case 'clear':     cmdClear(); break;
         case 'tags':      cmdTags(); break;
         case 'search':    cmdSearch(args); break;
         case 'history':   cmdHistory(); break;
-        case 'date':      cmdDate(); break;
         case 'echo':      printOutput(args.join(' ')); break;
         case 'pwd':       printOutput('/home/bobbay/blog'); break;
         case 'neofetch':  cmdNeofetch(); break;
@@ -236,11 +234,9 @@
   <span class="cmd-name">search &lt;term&gt;</span>   search posts
   <span class="cmd-name">tags</span>            list all tags
   <span class="cmd-name">about</span>           about me
-  <span class="cmd-name">whoami</span>          who am i
   <span class="cmd-name">neofetch</span>        system info
   <span class="cmd-name">history</span>         command history
   <span class="cmd-name">clear</span>           clear terminal
-  <span class="cmd-name">date</span>            current date
   <span class="cmd-name">help</span>            this message
       </div>`);
     }
@@ -255,10 +251,6 @@
 
         <a href="about.html" class="read-link">full bio →</a>
       </div>`);
-    }
-
-    function cmdWhoami() {
-      printOutput('bobby — <span class="accent">builder of things</span>');
     }
 
     function cmdClear() {
@@ -318,10 +310,6 @@
       printOutput(result);
     }
 
-    function cmdDate() {
-      printOutput(new Date().toLocaleString());
-    }
-
     function cmdNeofetch() {
       printOutput(`<div class="neofetch">
 <span class="accent">        ╭──────╮</span>        <span class="cmd-name">bobbay</span>@<span class="cmd-name">blog</span>
@@ -341,7 +329,7 @@
       const parts = val.split(/\s+/);
 
       if (parts.length === 1) {
-        const cmds = ['ls', 'cat', 'open', 'cd', 'help', 'about', 'whoami', 'clear', 'tags', 'search', 'history', 'date', 'echo', 'pwd', 'neofetch'];
+        const cmds = ['ls', 'cat', 'open', 'cd', 'help', 'about', 'clear', 'tags', 'search', 'history', 'echo', 'pwd', 'neofetch'];
         const match = cmds.find(c => c.startsWith(parts[0].toLowerCase()));
         if (match) input.value = match;
       } else if (['cat', 'open'].includes(parts[0].toLowerCase())) {

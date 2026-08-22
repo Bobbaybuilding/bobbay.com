@@ -680,6 +680,63 @@ a:hover {
   text-decoration: underline;
 }
 
+/* === ARTICLE SUBTITLE, MEDIA & SOURCE === */
+
+.article-subtitle {
+  max-width: 600px;
+  margin: 0 auto 16px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.article-body figure {
+  margin: 32px 0;
+}
+
+.article-body img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-surface);
+}
+
+.article-body figure.portrait img {
+  max-width: 440px;
+  margin: 0 auto;
+}
+
+.article-body figcaption {
+  margin-top: 10px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--text-tertiary);
+  text-align: center;
+}
+
+.article-body em {
+  font-style: italic;
+  color: var(--text-primary);
+}
+
+.article-body .post-source {
+  margin-top: 48px;
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+
+.article-body .post-source a {
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border);
+}
+
+.article-body .post-source a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
 /* === RESPONSIVE === */
 
 @media (max-width: 768px) {
@@ -711,6 +768,18 @@ a:hover {
 
   .article-body {
     padding: 32px 20px;
+  }
+
+  .article-subtitle {
+    font-size: 12px;
+  }
+
+  .article-body figure {
+    margin: 24px 0;
+  }
+
+  .article-body figure.portrait img {
+    max-width: 100%;
   }
 
   .help-grid {

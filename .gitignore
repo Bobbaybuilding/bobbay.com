@@ -1,0 +1,18 @@
+node_modules/
+
+# Draft posts — not public yet
+drafts/
+posts/i-want-the-friction.html
+posts/http-402-works.html
+
+# Local review packs - not public
+2review/
+
+# Clay-render inbox — raw generations, never committed
+art-inbox/
+
+# Generated previews
+.preview/
+
+# macOS
+.DS_Store

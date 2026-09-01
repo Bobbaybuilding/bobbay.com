@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{TITLE}} — bobbay</title>{{CANONICAL}}
+  <link rel="stylesheet" href="../style.css">
+  <script>
+    // Applied before first paint so a pinned theme never flashes the other one.
+    try { const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <a href="../index.html" class="nav-logo">bobbay <span>|</span></a>
+    <ul class="nav-links">
+      <li><a href="../blogs.html">blogs</a></li>
+      <li><a href="../about.html">about</a></li>
+    </ul>
+  </nav>
+
+  <!-- Article Header -->
+  <header class="article-header">
+    <div class="breadcrumb">
+      <a href="../index.html">~/bobbay</a> / {{SLUG}}.md
+    </div>
+    <h1>{{TITLE}}</h1>
+    <div class="article-meta">
+      <!-- generated:post-meta:start -->
+      <!-- generated:post-meta:end -->
+    </div>
+  </header>
+
+  <!-- Article Body -->
+  <main class="article-body">
+
+    <p>
+      Write here.
+    </p>
+
+    <!-- Article Nav -->
+    <nav class="article-nav">
+      <!-- generated:post-nav:start -->
+      <!-- generated:post-nav:end -->
+    </nav>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <span class="footer-logo">bobbay</span>
+    <ul class="footer-links">
+      <!-- generated:socials:start -->
+      <!-- generated:socials:end -->
+    </ul>
+  </footer>
+
+<script>
+  // Toggling back to whatever the OS says removes the attribute entirely, so
+  // the site resumes following the system instead of being stuck on a choice.
+  document.querySelector('[data-theme]')?.addEventListener('click', () => {
+    const root = document.documentElement;
+    const system = matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'day';
+    const next = (root.dataset.theme || system) === 'night' ? 'day' : 'night';
+    if (next === system) { delete root.dataset.theme; } else { root.dataset.theme = next; }
+    try { next === system ? localStorage.removeItem('theme') : localStorage.setItem('theme', next); } catch (e) {}
+  });
+</script>
+
+</body>
+</html>

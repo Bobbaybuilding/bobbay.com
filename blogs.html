@@ -2,108 +2,69 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>blogs — bobbay</title>
-  <link rel="stylesheet" href="style.css?v=5">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Writing — Bobby Bola</title>
+  <meta name="description" content="Everything I have written, newest first.">
+  <link rel="stylesheet" href="/style.css?v=3c6bfa0c">
+  <script>
+    // Applied before first paint so a pinned theme never flashes the other one.
+    try { const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
 </head>
 <body>
 
-  <!-- Nav -->
-  <nav class="nav">
-    <a href="index.html" class="nav-logo">bobbay <span>|</span></a>
-    <ul class="nav-links">
-      <li><a href="blogs.html" class="active">blogs</a></li>
-      <li><a href="about.html">about</a></li>
-    </ul>
-  </nav>
+<svg class="grain" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <filter id="khadi">
+    <feTurbulence type="fractalNoise" baseFrequency="0.82" numOctaves="3" stitchTiles="stitch"/>
+  </filter>
+  <rect width="100%" height="100%" filter="url(#khadi)"/>
+</svg>
 
-  <!-- Blog List -->
-  <main class="page-content">
-    <h1 class="page-title">blogs</h1>
-    <p class="page-subtitle">all posts, newest first.</p>
+<main class="page">
 
-    <div class="blog-list">
-      <a href="posts/what-if-losing-your-culture-is-how.html" class="blog-card">
-        <div class="blog-card-meta">
-          <span class="blog-date">2026-08-17</span>
-          <span class="blog-tag">culture</span>
-          <span class="blog-tag">identity</span>
-          <span class="blog-tag">personal</span>
-        </div>
-        <h2>What If Losing Your Culture Is How You Find It?</h2>
-        <p>growing up british indian with a small family, and why distance from a culture can be permission to reinterpret it.</p>
-        <span class="blog-read">read post →</span>
-      </a>
+  <a class="back" href="/">&larr; Bobby Bola</a>
 
-      <a href="posts/what-did-we-accidentally-destroy.html" class="blog-card">
-        <div class="blog-card-meta">
-          <span class="blog-date">2026-07-23</span>
-          <span class="blog-tag">community</span>
-          <span class="blog-tag">cities</span>
-          <span class="blog-tag">technology</span>
-        </div>
-        <h2>The Next Social Network Should Be Your Neighbourhood</h2>
-        <p>what did we accidentally destroy when we made life more convenient? a thesis on building roots in real life.</p>
-        <span class="blog-read">read post →</span>
-      </a>
+  <h1 class="page-title">Writing</h1>
+  <p class="page-subtitle">Everything, newest first.</p>
 
-      <a href="posts/behind-the-marble-staircase.html" class="blog-card">
-        <div class="blog-card-meta">
-          <span class="blog-date">2026-07-19</span>
-          <span class="blog-tag">health</span>
-          <span class="blog-tag">longevity</span>
-          <span class="blog-tag">inequality</span>
-        </div>
-        <h2>When Preventative Healthcare Becomes a Luxury</h2>
-        <p>a private longevity clinic inside a luxury hotel. the doctors were excellent. that was exactly the problem.</p>
-        <span class="blog-read">read post →</span>
-      </a>
+  <!-- generated:blog-cards:start -->
+  <div class="rows">
+    <a class="row" href="posts/what-if-losing-your-culture-is-how.html"><span>What If Losing Your Culture Is How You Find It?<small>growing up british indian with a small family, and why distance from a culture can be permission to reinterpret it.</small></span><span class="meta">Aug 2026 <i>6 min</i></span></a>
+    <a class="row" href="posts/what-did-we-accidentally-destroy.html"><span>The Next Social Network Should Be Your Neighbourhood<small>what did we accidentally destroy when we made life more convenient? a thesis on building roots in real life.</small></span><span class="meta">Jul 2026 <i>10 min</i></span></a>
+    <a class="row" href="posts/behind-the-marble-staircase.html"><span>When Preventative Healthcare Becomes a Luxury<small>a private longevity clinic inside a luxury hotel. the doctors were excellent. that was exactly the problem.</small></span><span class="meta">Jul 2026 <i>10 min</i></span></a>
+    <a class="row" href="posts/plaster-prescription.html"><span>Plaster Prescription<small>a prescription becomes a plaster when it is the final answer to a problem that has not been understood.</small></span><span class="meta">Jul 2026 <i>11 min</i></span></a>
+    <a class="row" href="posts/why-im-writing-against-plasters.html"><span>Why I’m Writing [Again]<small>left medical school in my penultimate year. how do we build a society where living well takes less heroic discipline?</small></span><span class="meta">Jul 2026 <i>3 min</i></span></a>
+    <a class="row" href="posts/hello-world.html"><span>Hello World<small>this is the first post. if you&#39;re reading this, the blog works.</small></span><span class="meta">Mar 2026 <i>1 min</i></span></a>
+    <a class="row" href="https://hackmd.io/@bobbay/ByovgCyGC" target="_blank" rel="noopener"><span>Liquid Restaking Tokens Demystified<small>Mechanisms, stakeholders and design variations of liquid restaking tokens in the EigenLayer ecosystem.</small></span><span class="meta">Apr 2024 <i>hackmd.io</i></span></a>
+  </div>
+  <!-- generated:blog-cards:end -->
 
-      <a href="posts/plaster-prescription.html" class="blog-card">
-        <div class="blog-card-meta">
-          <span class="blog-date">2026-07-12</span>
-          <span class="blog-tag">health</span>
-          <span class="blog-tag">prevention</span>
-          <span class="blog-tag">nhs</span>
-        </div>
-        <h2>Plaster Prescription</h2>
-        <p>a prescription becomes a plaster when it is the final answer to a problem that has not been understood.</p>
-        <span class="blog-read">read post →</span>
-      </a>
-
-      <a href="posts/why-im-writing-against-plasters.html" class="blog-card">
-        <div class="blog-card-meta">
-          <span class="blog-date">2026-07-05</span>
-          <span class="blog-tag">meta</span>
-          <span class="blog-tag">health</span>
-          <span class="blog-tag">writing</span>
-        </div>
-        <h2>Why I’m Writing [Again]</h2>
-        <p>left medical school in my penultimate year. how do we build a society where living well takes less heroic discipline?</p>
-        <span class="blog-read">read post →</span>
-      </a>
-
-      <a href="posts/hello-world.html" class="blog-card">
-        <div class="blog-card-meta">
-          <span class="blog-date">2026-03-25</span>
-          <span class="blog-tag">meta</span>
-        </div>
-        <h2>Hello World</h2>
-        <p>this is the first post. if you're reading this, the blog works.</p>
-        <span class="blog-read">read post →</span>
-      </a>
-    </div>
-  </main>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <span class="footer-logo">bobbay</span>
-    <ul class="footer-links">
-      <li><a href="#">rss</a></li>
-      <li><a href="#">github</a></li>
-      <li><a href="https://x.com/bobbay_b">twitter</a></li>
-    </ul>
+  <footer>
+    <!-- generated:socials:start -->
+    <a href="https://x.com/bobbay_b" target="_blank" rel="noopener">x</a>
+    <span>&middot;</span>
+    <a href="https://www.linkedin.com/in/bobby-bola-0067a63b1/" target="_blank" rel="noopener">linkedin</a>
+    <span>&middot;</span>
+    <a href="https://substack.com/@bobbayb" target="_blank" rel="noopener">substack</a>
+    <span>&middot;</span>
+    <a href="mailto:bob@bobbay.com">email</a>
+    <span>&middot;</span>
+    <button class="theme" type="button" data-theme aria-label="Switch colour scheme"><span class="to-night">Dark</span><span class="to-day">Light</span></button>
+    <!-- generated:socials:end -->
   </footer>
+
+</main>
+<script>
+  // Toggling back to whatever the OS says removes the attribute entirely, so
+  // the site resumes following the system instead of being stuck on a choice.
+  document.querySelector('[data-theme]')?.addEventListener('click', () => {
+    const root = document.documentElement;
+    const system = matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'day';
+    const next = (root.dataset.theme || system) === 'night' ? 'day' : 'night';
+    if (next === system) { delete root.dataset.theme; } else { root.dataset.theme = next; }
+    try { next === system ? localStorage.removeItem('theme') : localStorage.setItem('theme', next); } catch (e) {}
+  });
+</script>
 
 </body>
 </html>

@@ -1,0 +1,315 @@
+{
+  "schema": 1,
+  "entries": [
+    {
+      "slug": "what-if-losing-your-culture-is-how",
+      "title": "What If Losing Your Culture Is How You Find It?",
+      "publishedAt": "2026-08-17",
+      "tags": [
+        "culture",
+        "identity",
+        "personal"
+      ],
+      "preview": "growing up british indian with a small family, and why distance from a culture can be permission to reinterpret it.",
+      "public": true,
+      "canonical": null,
+      "object": null,
+      "image": {
+        "dir": "img/writing/what-if-losing-your-culture-is-how",
+        "masterHash": "sha256:16570807b4c6545d7a0e48aea8fe7d09cae8e19521f18723c33d328723fc0470",
+        "pad": 0.86,
+        "transparent": false,
+        "approved": false,
+        "promptVersion": "writing.v1",
+        "renderedAt": "2026-09-01T13:09:20Z",
+        "variants": {
+          "hero": {
+            "w": 360,
+            "h": 360,
+            "bytes": 2000
+          },
+          "hero@2x": {
+            "w": 720,
+            "h": 720,
+            "bytes": 3544
+          },
+          "card": {
+            "w": 240,
+            "h": 240,
+            "bytes": 1290
+          },
+          "card@2x": {
+            "w": 480,
+            "h": 480,
+            "bytes": 2086
+          }
+        }
+      }
+    },
+    {
+      "slug": "what-did-we-accidentally-destroy",
+      "title": "The Next Social Network Should Be Your Neighbourhood",
+      "publishedAt": "2026-07-23",
+      "tags": [
+        "community",
+        "cities",
+        "technology"
+      ],
+      "preview": "what did we accidentally destroy when we made life more convenient? a thesis on building roots in real life.",
+      "public": true,
+      "canonical": null,
+      "object": null,
+      "image": {
+        "dir": "img/writing/what-did-we-accidentally-destroy",
+        "masterHash": "sha256:4ae65e35f3cea3eb4ae29e604b1eec2429f39bed7f676d39da51ff339b69ae70",
+        "pad": 0.86,
+        "transparent": false,
+        "approved": false,
+        "promptVersion": "writing.v1",
+        "renderedAt": "2026-09-01T13:09:19Z",
+        "variants": {
+          "hero": {
+            "w": 360,
+            "h": 360,
+            "bytes": 2434
+          },
+          "hero@2x": {
+            "w": 720,
+            "h": 720,
+            "bytes": 3868
+          },
+          "card": {
+            "w": 240,
+            "h": 240,
+            "bytes": 1566
+          },
+          "card@2x": {
+            "w": 480,
+            "h": 480,
+            "bytes": 2376
+          }
+        }
+      }
+    },
+    {
+      "slug": "behind-the-marble-staircase",
+      "title": "When Preventative Healthcare Becomes a Luxury",
+      "publishedAt": "2026-07-19",
+      "tags": [
+        "health",
+        "longevity",
+        "inequality"
+      ],
+      "preview": "a private longevity clinic inside a luxury hotel. the doctors were excellent. that was exactly the problem.",
+      "public": true,
+      "canonical": null,
+      "object": null,
+      "image": {
+        "dir": "img/writing/behind-the-marble-staircase",
+        "masterHash": "sha256:ac9e1f290cbc1b559553486196ae807bcdb911cb7402c88dc80adc94f52fa6c8",
+        "pad": 0.86,
+        "transparent": false,
+        "approved": false,
+        "promptVersion": "writing.v1",
+        "renderedAt": "2026-09-01T13:09:18Z",
+        "variants": {
+          "hero": {
+            "w": 360,
+            "h": 360,
+            "bytes": 2264
+          },
+          "hero@2x": {
+            "w": 720,
+            "h": 720,
+            "bytes": 3902
+          },
+          "card": {
+            "w": 240,
+            "h": 240,
+            "bytes": 1442
+          },
+          "card@2x": {
+            "w": 480,
+            "h": 480,
+            "bytes": 2324
+          }
+        }
+      }
+    },
+    {
+      "slug": "plaster-prescription",
+      "title": "Plaster Prescription",
+      "publishedAt": "2026-07-12",
+      "tags": [
+        "health",
+        "prevention",
+        "nhs"
+      ],
+      "preview": "a prescription becomes a plaster when it is the final answer to a problem that has not been understood.",
+      "public": true,
+      "canonical": null,
+      "object": null,
+      "image": {
+        "dir": "img/writing/plaster-prescription",
+        "masterHash": "sha256:7337f113109710bacadc57aaf6814f713ec45f20f16b9bada1d9348d187e765d",
+        "pad": 0.86,
+        "transparent": false,
+        "approved": false,
+        "promptVersion": "writing.v1",
+        "renderedAt": "2026-09-01T13:09:19Z",
+        "variants": {
+          "hero": {
+            "w": 360,
+            "h": 360,
+            "bytes": 2314
+          },
+          "hero@2x": {
+            "w": 720,
+            "h": 720,
+            "bytes": 3692
+          },
+          "card": {
+            "w": 240,
+            "h": 240,
+            "bytes": 1418
+          },
+          "card@2x": {
+            "w": 480,
+            "h": 480,
+            "bytes": 2242
+          }
+        }
+      }
+    },
+    {
+      "slug": "why-im-writing-against-plasters",
+      "title": "Why I’m Writing [Again]",
+      "publishedAt": "2026-07-05",
+      "tags": [
+        "meta",
+        "health",
+        "writing"
+      ],
+      "preview": "left medical school in my penultimate year. how do we build a society where living well takes less heroic discipline?",
+      "public": true,
+      "canonical": null,
+      "object": null,
+      "image": {
+        "dir": "img/writing/why-im-writing-against-plasters",
+        "masterHash": "sha256:34ec66d503677ef188dc8a5781c9a6900347cd92f0f9e5e71b35dc046784267d",
+        "pad": 0.86,
+        "transparent": false,
+        "approved": false,
+        "promptVersion": "writing.v1",
+        "renderedAt": "2026-09-01T13:09:20Z",
+        "variants": {
+          "hero": {
+            "w": 360,
+            "h": 360,
+            "bytes": 1670
+          },
+          "hero@2x": {
+            "w": 720,
+            "h": 720,
+            "bytes": 3020
+          },
+          "card": {
+            "w": 240,
+            "h": 240,
+            "bytes": 1070
+          },
+          "card@2x": {
+            "w": 480,
+            "h": 480,
+            "bytes": 1810
+          }
+        }
+      }
+    },
+    {
+      "slug": "http-402-works",
+      "title": "HTTP 402 Works",
+      "publishedAt": "2026-03-27",
+      "tags": [
+        "payments",
+        "web"
+      ],
+      "preview": "draft, not published.",
+      "public": false,
+      "canonical": null,
+      "object": null
+    },
+    {
+      "slug": "i-want-the-friction",
+      "title": "I Want the Friction",
+      "publishedAt": "2026-03-26",
+      "tags": [
+        "meta",
+        "payments"
+      ],
+      "preview": "draft, not published.",
+      "public": false,
+      "canonical": null,
+      "object": null
+    },
+    {
+      "slug": "hello-world",
+      "title": "Hello World",
+      "publishedAt": "2026-03-25",
+      "tags": [
+        "meta",
+        "first"
+      ],
+      "preview": "this is the first post. if you're reading this, the blog works.",
+      "public": true,
+      "canonical": null,
+      "object": null,
+      "image": {
+        "dir": "img/writing/hello-world",
+        "masterHash": "sha256:1598533e610a16e2da58325c9b920655ccc379202343d09a93acf7b4b41caa91",
+        "pad": 0.86,
+        "transparent": false,
+        "approved": false,
+        "promptVersion": "writing.v1",
+        "renderedAt": "2026-09-01T13:09:19Z",
+        "variants": {
+          "hero": {
+            "w": 360,
+            "h": 360,
+            "bytes": 2090
+          },
+          "hero@2x": {
+            "w": 720,
+            "h": 720,
+            "bytes": 3596
+          },
+          "card": {
+            "w": 240,
+            "h": 240,
+            "bytes": 1270
+          },
+          "card@2x": {
+            "w": 480,
+            "h": 480,
+            "bytes": 2136
+          }
+        }
+      }
+    },
+    {
+      "slug": "liquid-restaking-tokens-demystified",
+      "title": "Liquid Restaking Tokens Demystified",
+      "publishedAt": "2024-04-30",
+      "tags": [
+        "crypto",
+        "restaking"
+      ],
+      "preview": "Mechanisms, stakeholders and design variations of liquid restaking tokens in the EigenLayer ecosystem.",
+      "public": true,
+      "external": "https://hackmd.io/@bobbay/ByovgCyGC",
+      "canonical": null,
+      "object": null,
+      "image": null
+    }
+  ]
+}

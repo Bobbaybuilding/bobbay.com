@@ -4,28 +4,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>hello world — bobbay</title>
-  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="/style.css?v=3c6bfa0c">
+  <script>
+    // Applied before first paint so a pinned theme never flashes the other one.
+    try { const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
 </head>
 <body>
 
-  <!-- Nav -->
-  <nav class="nav">
-    <a href="../index.html" class="nav-logo">bobbay <span>|</span></a>
-    <ul class="nav-links">
-      <li><a href="../blogs.html">blogs</a></li>
-      <li><a href="../about.html">about</a></li>
-    </ul>
-  </nav>
+<svg class="grain" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <filter id="khadi">
+    <feTurbulence type="fractalNoise" baseFrequency="0.82" numOctaves="3" stitchTiles="stitch"/>
+  </filter>
+  <rect width="100%" height="100%" filter="url(#khadi)"/>
+</svg>
+
+<article class="article">
+
+<a class="back" href="/">&larr; Bobby Bola</a>
+
 
   <!-- Article Header -->
   <header class="article-header">
-    <div class="breadcrumb">
-      <a href="../index.html">~/stories</a> / hello-world.md
-    </div>
     <h1>Hello World</h1>
     <div class="article-meta">
-      <span>2026-03-25</span>
+      <!-- generated:post-meta:start -->
+      <time datetime="2026-03-25">25 Mar 2026</time>
       <span>1 min read</span>
+      <!-- generated:post-meta:end -->
     </div>
   </header>
 
@@ -74,24 +80,27 @@
 
     <!-- Article Nav -->
     <nav class="article-nav">
-      <div>
-        <!-- empty — no previous post -->
-      </div>
-      <div style="text-align: right;">
-        <!-- empty — no next post yet -->
-      </div>
+      <!-- generated:post-nav:start -->
+      <span class="prev"></span>
+      <a class="next" href="why-im-writing-against-plasters.html"><span class="label">Next</span><span class="t">Why I’m Writing [Again]</span></a>
+      <!-- generated:post-nav:end -->
     </nav>
   </main>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <span class="footer-logo">bobbay</span>
-    <ul class="footer-links">
-      <li><a href="#">rss</a></li>
-      <li><a href="#">github</a></li>
-      <li><a href="https://x.com/bobbay_b">twitter</a></li>
-    </ul>
+  <footer>
+    <!-- generated:socials:start -->
+    <a href="https://x.com/bobbay_b" target="_blank" rel="noopener">x</a>
+    <span>&middot;</span>
+    <a href="https://www.linkedin.com/in/bobby-bola-0067a63b1/" target="_blank" rel="noopener">linkedin</a>
+    <span>&middot;</span>
+    <a href="https://substack.com/@bobbayb" target="_blank" rel="noopener">substack</a>
+    <span>&middot;</span>
+    <a href="mailto:bob@bobbay.com">email</a>
+    <span>&middot;</span>
+    <button class="theme" type="button" data-theme aria-label="Switch colour scheme"><span class="to-night">Dark</span><span class="to-day">Light</span></button>
+    <!-- generated:socials:end -->
   </footer>
+
+</article>
 
   <!-- Help Overlay -->
   <div class="help-overlay" id="helpOverlay">
@@ -136,6 +145,19 @@
       if (e.target === this) this.classList.remove('active');
     });
   </script>
+
+
+<script>
+  // Toggling back to whatever the OS says removes the attribute entirely, so
+  // the site resumes following the system instead of being stuck on a choice.
+  document.querySelector('[data-theme]')?.addEventListener('click', () => {
+    const root = document.documentElement;
+    const system = matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'day';
+    const next = (root.dataset.theme || system) === 'night' ? 'day' : 'night';
+    if (next === system) { delete root.dataset.theme; } else { root.dataset.theme = next; }
+    try { next === system ? localStorage.removeItem('theme') : localStorage.setItem('theme', next); } catch (e) {}
+  });
+</script>
 
 </body>
 </html>

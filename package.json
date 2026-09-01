@@ -1,0 +1,28 @@
+{
+  "name": "bobbay.com",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "post": "node tools/post.mjs",
+    "build": "node tools/build.mjs",
+    "check": "node tools/check.mjs",
+    "site": "npm run build && npm run check",
+    "dev": "python3 -m http.server 8080 --bind 127.0.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bobbaybuilding/bobbay.com.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bobbaybuilding/bobbay.com/issues"
+  },
+  "homepage": "https://github.com/Bobbaybuilding/bobbay.com#readme",
+  "private": true,
+  "engines": {
+    "node": ">=20.9.0"
+  }
+}

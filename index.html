@@ -6,7 +6,7 @@
   <title>Bobby Bola</title>
   <meta name="description" content="Studied medicine. Work in fintech. Digital nomadic. London-based.">
   <link rel="alternate" type="application/rss+xml" title="Bobby Bola" href="/feed.xml">
-  <link rel="stylesheet" href="style.css?v=5845a50a">
+  <link rel="stylesheet" href="style.css?v=0d811080">
   <script>
     // Applied before first paint so a pinned theme never flashes the other one.
     try { const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
@@ -32,27 +32,41 @@
   <!-- generated:intro:end -->
 
   <!-- generated:lastseen:start -->
-  <div class="scene">
-    <div class="plaque plaque-top">
-      <span>London, UK</span>
-      <span>Last seen <time datetime="2026-09-01" data-at="2026-09-01">1 Sep 2026</time></span>
+  <div class="last-seen" id="check-ins" data-last-seen-root data-expanded="false" data-current="kubo-garden">
+    <div class="scene" data-hero>
+      <div class="plaque plaque-top">
+        <span>London, UK</span>
+        <span>Last seen <time datetime="2026-09-01" data-at="2026-09-01">1 Sep 2026</time></span>
+      </div>
+      <img src="checkins/kubo.svg" width="900" height="600" alt="Terracotta plaque of Kūbō Garden, Hackney Wick" data-hero-img>
+      <div class="scene-ph" data-hero-ph hidden></div>
+      <button class="plaque plaque-checkins" type="button" data-hero-button aria-expanded="false" aria-label="Show all check-ins">Check-ins</button>
     </div>
-    <img src="checkins/kubo.svg" width="900" height="600" alt="Terracotta plaque of Kūbō Garden, Hackney Wick">
-    <a class="plaque plaque-checkins" href="#check-ins">Check-ins</a>
+    <p class="caption" data-hero-caption>Last seen at <a class="venue" href="https://www.kubogarden.co.uk/" target="_blank" rel="noopener">Kūbō Garden</a>, Hackney Wick</p>
+    <div class="strip-wrap" data-strip-wrap inert>
+      <div class="strip" data-strip role="region" aria-label="All check-ins" tabindex="-1">
+        <div class="strip-track" data-strip-track>
+          <figure class="strip-item" data-checkin-id="farha" data-place="Farha" data-at="2026-08-30" data-url="https://www.instagram.com/farha.london">
+            <p class="strip-when"><time datetime="2026-08-30" data-at="2026-08-30">30 Aug 2026</time></p>
+            <button class="strip-button" type="button" aria-label="View the Farha check-in"><span class="strip-ph" aria-hidden="true"></span></button>
+            <figcaption><a class="strip-place" href="https://www.instagram.com/farha.london" target="_blank" rel="noopener">Farha</a></figcaption>
+          </figure>
+          <figure class="strip-item" data-checkin-id="etude-coffee" data-place="Etude Coffee" data-at="2026-08-31" data-url="https://etude.coffee">
+            <p class="strip-when"><time datetime="2026-08-31" data-at="2026-08-31">31 Aug 2026</time></p>
+            <button class="strip-button" type="button" aria-label="View the Etude Coffee check-in"><span class="strip-ph" aria-hidden="true"></span></button>
+            <figcaption><a class="strip-place" href="https://etude.coffee" target="_blank" rel="noopener">Etude Coffee</a></figcaption>
+          </figure>
+          <figure class="strip-item" data-checkin-id="kubo-garden" data-place="Kūbō Garden" data-at="2026-09-01" data-url="https://www.kubogarden.co.uk/" data-note="Pan-Asian café, Hackney Wick" data-area="Hackney Wick" data-image="checkins/kubo.svg" data-alt="Terracotta plaque of Kūbō Garden, Hackney Wick" data-width="900" data-height="600">
+            <p class="strip-when"><time datetime="2026-09-01" data-at="2026-09-01">1 Sep 2026</time></p>
+            <button class="strip-button" type="button" aria-label="View the Kūbō Garden check-in"><img src="checkins/kubo.svg" width="900" height="600" alt="Terracotta plaque of Kūbō Garden, Hackney Wick"></button>
+            <figcaption><a class="strip-place" href="https://www.kubogarden.co.uk/" target="_blank" rel="noopener">Kūbō Garden</a><span class="strip-note">Pan-Asian café, Hackney Wick</span></figcaption>
+          </figure>
+        </div>
+      </div>
+      <button class="back-button" type="button" data-back-button>Back</button>
+    </div>
   </div>
-  <p class="caption">Last seen at <a class="venue" href="https://www.kubogarden.co.uk/" target="_blank" rel="noopener">Kūbō Garden</a>, Hackney Wick</p>
   <!-- generated:lastseen:end -->
-
-  <section id="check-ins">
-    <h2>Check-ins</h2>
-    <!-- generated:checkins:start -->
-    <div class="rows">
-      <a class="row" href="https://www.kubogarden.co.uk/" target="_blank" rel="noopener"><span>Kūbō Garden<small>Pan-Asian café, Hackney Wick</small></span><span class="meta">1 Sep 2026</span></a>
-      <a class="row" href="https://etude.coffee" target="_blank" rel="noopener"><span>Etude Coffee</span><span class="meta">31 Aug 2026</span></a>
-      <a class="row" href="https://www.instagram.com/farha.london" target="_blank" rel="noopener"><span>Farha</span><span class="meta">30 Aug 2026</span></a>
-    </div>
-    <!-- generated:checkins:end -->
-  </section>
 
   <section>
     <h2>Writing</h2>
@@ -118,8 +132,9 @@
     if (next === system) { delete root.dataset.theme; } else { root.dataset.theme = next; }
     try { next === system ? localStorage.removeItem('theme') : localStorage.setItem('theme', next); } catch (e) {}
   });
+
   // Relative last-seen is client-only. Generated HTML always ships an absolute date.
-  document.querySelectorAll('[data-at]').forEach(el => {
+  const relativeAt = el => {
     const iso = el.getAttribute('data-at');
     if (!iso) return;
     const then = new Date(iso.slice(0, 10) + 'T12:00:00Z');
@@ -132,7 +147,194 @@
     if (n === 0) el.textContent = 'today';
     else if (n === 1) el.textContent = 'yesterday';
     else if (n > 1) el.textContent = n + ' days ago';
-  });
+  };
+  document.querySelectorAll('[data-at]').forEach(relativeAt);
+
+  const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const absDate = iso => {
+    const d = new Date(iso.slice(0, 10) + 'T12:00:00Z');
+    if (Number.isNaN(+d)) return iso;
+    return d.getUTCDate() + ' ' + MONTHS[d.getUTCMonth()] + ' ' + d.getUTCFullYear();
+  };
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[c]));
+
+  const root = document.querySelector('[data-last-seen-root]');
+  if (root) {
+    const hero = root.querySelector('[data-hero]');
+    const openBtn = root.querySelector('[data-hero-button]');
+    const wrap = root.querySelector('[data-strip-wrap]');
+    const strip = root.querySelector('[data-strip]');
+    const track = root.querySelector('[data-strip-track]');
+    const back = root.querySelector('[data-back-button]');
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let busy = false;
+
+    const itemById = id => track?.querySelector('[data-checkin-id="' + CSS.escape(id || '') + '"]');
+    const currentItem = () => itemById(root.dataset.current);
+
+    const scrollToCurrent = () => {
+      if (!strip || !track) return;
+      const item = currentItem() || track.lastElementChild;
+      if (!item) return;
+      const target = item.querySelector('img, .strip-ph') || item;
+      const s = strip.getBoundingClientRect();
+      const t = target.getBoundingClientRect();
+      strip.scrollLeft += (t.left + t.width / 2) - (s.left + s.width / 2);
+    };
+
+    const applyCheckin = item => {
+      if (!item || !hero) return;
+      root.dataset.current = item.dataset.checkinId || '';
+      const place = item.dataset.place || '';
+      const at = item.dataset.at || '';
+      const url = item.dataset.url || '';
+      const area = item.dataset.area || '';
+      const image = item.dataset.image || '';
+      const alt = item.dataset.alt || place;
+      const img = hero.querySelector('[data-hero-img]');
+      const ph = hero.querySelector('[data-hero-ph]');
+      const time = hero.querySelector('time');
+      if (time && at) {
+        time.setAttribute('datetime', at);
+        time.setAttribute('data-at', at);
+        time.textContent = absDate(at);
+        relativeAt(time);
+      }
+      if (image) {
+        if (img) {
+          img.hidden = false;
+          img.src = image;
+          img.alt = alt;
+          if (item.dataset.width) img.width = Number(item.dataset.width);
+          if (item.dataset.height) img.height = Number(item.dataset.height);
+        }
+        if (ph) ph.hidden = true;
+      } else {
+        if (img) {
+          img.removeAttribute('src');
+          img.alt = '';
+          img.hidden = true;
+        }
+        if (ph) ph.hidden = false;
+      }
+      const caption = root.querySelector('[data-hero-caption]');
+      if (caption) {
+        const venue = url
+          ? '<a class="venue" href="' + esc(url) + '" target="_blank" rel="noopener">' + esc(place) + '</a>'
+          : esc(place);
+        caption.innerHTML = 'Last seen at ' + venue + (area ? ', ' + esc(area) : '');
+      }
+    };
+
+    const morph = (fromEl, toEl, done) => {
+      const finish = () => { if (done) done(); };
+      if (reduce || !fromEl || !toEl || fromEl.hidden || toEl.hidden) return finish();
+      const a = fromEl.getBoundingClientRect();
+      const b = toEl.getBoundingClientRect();
+      if (a.width < 2 || b.width < 2) return finish();
+      const ghost = fromEl.cloneNode(true);
+      ghost.removeAttribute('data-hero-img');
+      ghost.setAttribute('aria-hidden', 'true');
+      ghost.hidden = false;
+      Object.assign(ghost.style, {
+        position: 'fixed',
+        left: a.left + 'px',
+        top: a.top + 'px',
+        width: a.width + 'px',
+        height: a.height + 'px',
+        margin: '0',
+        zIndex: '30',
+        maxWidth: 'none',
+        pointerEvents: 'none',
+        objectFit: 'contain'
+      });
+      document.body.appendChild(ghost);
+      const dx = (b.left + b.width / 2) - (a.left + a.width / 2);
+      const dy = (b.top + b.height / 2) - (a.top + a.height / 2);
+      const sx = b.width / a.width;
+      const sy = b.height / a.height;
+      const anim = ghost.animate(
+        [
+          { transform: 'translate(0,0) scale(1,1)' },
+          { transform: 'translate(' + dx + 'px,' + dy + 'px) scale(' + sx + ',' + sy + ')' }
+        ],
+        { duration: 450, easing: 'cubic-bezier(0.83, 0, 0.17, 1)', fill: 'forwards' }
+      );
+      const clear = () => { ghost.remove(); finish(); };
+      anim.onfinish = clear;
+      anim.oncancel = clear;
+    };
+
+    const lock = on => {
+      document.documentElement.style.overflow = on ? 'hidden' : '';
+      document.body.style.overflow = on ? 'hidden' : '';
+    };
+
+    const expand = immediate => {
+      if (root.dataset.expanded === 'true' || busy) return;
+      const heroImg = hero?.querySelector('[data-hero-img]:not([hidden])');
+      root.dataset.expanded = 'true';
+      if (hero) hero.inert = true;
+      wrap?.removeAttribute('inert');
+      openBtn?.setAttribute('aria-expanded', 'true');
+      lock(true);
+      scrollToCurrent();
+      if (location.hash !== '#check-ins') history.replaceState(null, '', '#check-ins');
+      const stripImg = currentItem()?.querySelector('img');
+      if (immediate) return;
+      busy = true;
+      morph(heroImg, stripImg, () => { busy = false; });
+      strip?.focus({ preventScroll: true });
+    };
+
+    const collapse = item => {
+      if (root.dataset.expanded !== 'true' || busy) return;
+      busy = true;
+      const fromImg = (item || currentItem())?.querySelector('img');
+      if (item) applyCheckin(item);
+      const heroImg = hero?.querySelector('[data-hero-img]:not([hidden])');
+      const finish = () => {
+        root.dataset.expanded = 'false';
+        if (hero) hero.inert = false;
+        wrap?.setAttribute('inert', '');
+        openBtn?.setAttribute('aria-expanded', 'false');
+        lock(false);
+        if (location.hash === '#check-ins') {
+          history.replaceState(null, '', location.pathname + location.search);
+        }
+        openBtn?.focus({ preventScroll: true });
+        busy = false;
+      };
+      morph(fromImg, heroImg, finish);
+    };
+
+    openBtn?.addEventListener('click', () => expand());
+    hero?.querySelector('.plaque-top time')?.addEventListener('click', () => expand());
+    back?.addEventListener('click', () => collapse());
+    track?.addEventListener('click', e => {
+      const btn = e.target.closest('.strip-button');
+      if (!btn) return;
+      const item = btn.closest('[data-checkin-id]');
+      if (item) collapse(item);
+    });
+    wrap?.addEventListener('wheel', e => {
+      if (root.dataset.expanded !== 'true') return;
+      if (e.target.closest('[data-back-button]')) return;
+      e.preventDefault();
+      const delta = (Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY)
+        * (e.deltaMode === 1 ? 24 : 1);
+      strip.scrollLeft += delta;
+    }, { passive: false });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && root.dataset.expanded === 'true') {
+        e.preventDefault();
+        collapse();
+      }
+    });
+    if (location.hash === '#check-ins') expand(true);
+  }
 </script>
 
 </body>

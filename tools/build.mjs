@@ -13,7 +13,7 @@ import { execFileSync } from 'node:child_process';
 import { ROOT, readPosts, readJson, writeIfChanged } from './lib/manifest.mjs';
 import { injectFile, hasMarkers } from './lib/inject.mjs';
 import {
-  intro, lastSeen, checkinRows, writingRows, workRows, liftRows,
+  intro, lastSeen, writingRows, workRows, liftRows,
   blogCards, postNav, postMeta, socialLinks,
 } from './lib/render.mjs';
 import { xmlEscape } from './lib/escape.mjs';
@@ -77,7 +77,6 @@ const blocks = {
   'index.html': {
     intro: intro(siteConfig),
     lastseen: lastSeen(siteConfig),
-    checkins: checkinRows(siteConfig.checkins),
     writing: writingRows(live),
     work: workRows(siteConfig.work),
     lifts: liftRows(siteConfig.lifts),

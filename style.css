@@ -167,9 +167,10 @@ section { margin-top: 3.5rem; }
 
 /* Last-seen scene. Peng-like dark pills sit on the terracotta, not around it.
    Iron black / khadi are hardcoded so the plaques stay dark in both themes. */
+.last-seen { position: relative; margin-top: 3.5rem; }
 .scene {
   position: relative;
-  margin-top: 2.5rem;
+  margin-top: 0;
 }
 .scene img {
   display: block;
@@ -222,13 +223,13 @@ button.plaque {
 .plaque-top time { cursor: pointer; }
 
 .scene-ph {
-  display: block;
   width: 100%;
   aspect-ratio: 3 / 2;
   background: var(--surface);
 }
-
-.last-seen { position: relative; }
+.scene-ph:not([hidden]) { display: block; }
+.scene-ph[hidden],
+img[hidden] { display: none !important; }
 .last-seen[data-expanded="true"] .scene,
 .last-seen[data-expanded="true"] .caption {
   opacity: 0;

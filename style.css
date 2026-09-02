@@ -237,21 +237,20 @@ img[hidden] { display: none !important; }
 }
 
 .strip-wrap {
-  z-index: 10;
+  z-index: 60;
   background: var(--bg);
-  opacity: 0;
+  opacity: 1;
+  visibility: hidden;
   pointer-events: none;
   flex-direction: column;
   justify-content: center;
-  transition: opacity .25s ease;
   display: flex;
   position: fixed;
   inset: 0;
 }
 .last-seen[data-expanded="true"] .strip-wrap {
-  opacity: 1;
+  visibility: visible;
   pointer-events: auto;
-  transition: none;
 }
 
 .strip {
@@ -259,7 +258,9 @@ img[hidden] { display: none !important; }
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
   width: 100%;
+  flex-shrink: 0;
   overflow-x: auto;
+  overflow-y: hidden;
   outline: none;
 }
 .strip::-webkit-scrollbar { display: none; }
@@ -281,26 +282,30 @@ img[hidden] { display: none !important; }
 }
 .strip-button {
   cursor: zoom-in;
-  background: none;
+  background: #C46A3A;
   border: 0;
   width: 100%;
   padding: 0;
   display: block;
   font: inherit;
   color: inherit;
-  min-height: 6.5rem;
+  aspect-ratio: 3 / 2;
+  overflow: visible;
+  appearance: none;
+  -webkit-appearance: none;
 }
 /* Empty / broken plaques stay terracotta in both themes so they do not
-   vanish against --surface on night. min-height reserves space even when
-   an image fails to load and aspect-ratio is ignored. */
+   vanish against --bg on night. aspect-ratio plus min-height reserve a
+   real box even when an image fails to load. */
 .strip-item img,
 .strip-ph {
-  aspect-ratio: 3 / 2;
   width: 100%;
   height: auto;
-  min-height: 6.5rem;
+  aspect-ratio: 3 / 2;
+  min-height: 9rem;
   display: block;
   object-fit: contain;
+  background: #C46A3A;
 }
 .strip-ph {
   background: #C46A3A;
@@ -317,7 +322,11 @@ img[hidden] { display: none !important; }
   margin: 0 0 .75rem;
   font-variant-numeric: tabular-nums;
 }
-.strip-item figcaption { margin: 0; }
+.strip-item figcaption {
+  margin: 0;
+  display: block;
+  color: var(--ink);
+}
 .strip-place {
   color: var(--ink);
   font-family: var(--sans);

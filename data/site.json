@@ -19,21 +19,44 @@
   },
   "checkins": [
     {
-      "place": "Kūbō Garden",
-      "at": "2026-09-01",
-      "url": "https://www.kubogarden.co.uk/",
-      "note": "Pan-Asian café, Hackney Wick",
-      "image": "checkins/kubo.svg"
+      "place": "Unlock",
+      "at": "2026-08-28",
+      "url": "https://unlock2021.me/",
+      "note": "Pizza & arts space, Hackney Wick",
+      "area": "Hackney Wick",
+      "image": "checkins/unlock.svg"
+    },
+    {
+      "place": "Farha",
+      "at": "2026-08-29",
+      "url": "https://www.instagram.com/farha.london",
+      "note": "Middle Eastern bakery, Leyton",
+      "area": "Leyton",
+      "image": "checkins/farha.svg"
     },
     {
       "place": "Etude Coffee",
       "at": "2026-08-31",
-      "url": "https://etude.coffee"
+      "url": "https://etude.coffee",
+      "note": "Specialty coffee, Crystal Palace",
+      "area": "Crystal Palace",
+      "image": "checkins/etude.svg"
     },
     {
-      "place": "Farha",
-      "at": "2026-08-30",
-      "url": "https://www.instagram.com/farha.london"
+      "place": "Kūbō Garden",
+      "at": "2026-09-01",
+      "url": "https://www.kubogarden.co.uk/",
+      "note": "Pan-Asian café, Hackney Wick",
+      "area": "Hackney Wick",
+      "image": "checkins/kubo.svg"
+    },
+    {
+      "place": "Tower Bridge Collective",
+      "at": "2026-09-01",
+      "url": "https://towerbridgecollective.co.uk/",
+      "note": "Food hall, Shad Thames",
+      "area": "Shad Thames",
+      "image": "checkins/tbc.svg"
     }
   ],
   "work": [

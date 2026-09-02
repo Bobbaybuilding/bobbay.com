@@ -11,6 +11,13 @@ const longDate  = iso => fmt(iso, { day: 'numeric', month: 'short', year: 'numer
 
 const shortMonth = iso => fmt(iso, { month: 'short', year: 'numeric' });
 
+// en-GB short month is "Sept"; the page language is "1 Sep 2026".
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const dayDate = iso => {
+  const d = new Date(`${iso.slice(0, 10)}T12:00:00Z`);
+  return `${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
+};
+
 // --- homepage blocks ------------------------------------------------------
 
 export function intro(site) {
@@ -19,6 +26,44 @@ export function intro(site) {
   ${e(site.bio)}
   ${site.motto ? `<span class="motto">${e(site.motto)}</span>` : ''}
 </p>`;
+}
+
+export function lastSeen(site) {
+  const here = site.here;
+  if (!here) return '';
+  const at = here.at;
+  const when = dayDate(at);
+  const size = (here.width && here.height) ? ` width="${here.width}" height="${here.height}"` : '';
+  const img = here.image
+    ? `<img src="${e(here.image)}"${size} alt="${e(here.alt || here.place)}">`
+    : '';
+  const venue = here.url
+    ? `<a class="venue" href="${e(here.url)}" target="_blank" rel="noopener">${e(here.place)}</a>`
+    : e(here.place);
+  const area = here.area ? `, ${e(here.area)}` : '';
+  return `<div class="scene">
+  <div class="plaque plaque-top">
+    <span>${e(here.city)}</span>
+    <span>Last seen <time datetime="${e(at)}" data-at="${e(at)}">${e(when)}</time></span>
+  </div>
+  ${img}
+  <a class="plaque plaque-checkins" href="#check-ins">Check-ins</a>
+</div>
+<p class="caption">Last seen at ${venue}${area}</p>`;
+}
+
+export function checkinRows(checkins) {
+  if (!checkins?.length) return '<p class="empty">nowhere yet</p>';
+  const sorted = [...checkins].sort((a, b) => b.at.localeCompare(a.at) || a.place.localeCompare(b.place));
+  return `<div class="rows">\n` + sorted.map(c => {
+    const note = c.note ? `<small>${e(c.note)}</small>` : '';
+    const meta = `<span class="meta">${e(dayDate(c.at))}</span>`;
+    if (c.url) {
+      const out = /^https?:/.test(c.url) ? ' target="_blank" rel="noopener"' : '';
+      return `  <a class="row" href="${e(c.url)}"${out}><span>${e(c.place)}${note}</span>${meta}</a>`;
+    }
+    return `  <div class="row"><span>${e(c.place)}${note}</span>${meta}</div>`;
+  }).join('\n') + `\n</div>`;
 }
 
 export function writingRows(posts) {

@@ -288,16 +288,26 @@ img[hidden] { display: none !important; }
   display: block;
   font: inherit;
   color: inherit;
+  min-height: 6.5rem;
 }
+/* Empty / broken plaques stay terracotta in both themes so they do not
+   vanish against --surface on night. min-height reserves space even when
+   an image fails to load and aspect-ratio is ignored. */
 .strip-item img,
 .strip-ph {
   aspect-ratio: 3 / 2;
   width: 100%;
   height: auto;
+  min-height: 6.5rem;
   display: block;
   object-fit: contain;
 }
-.strip-ph { background: var(--surface); }
+.strip-ph {
+  background: #C46A3A;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, #EFE7D7 28%, #9E3B2F);
+  outline: 1px solid color-mix(in srgb, #C46A3A 55%, var(--madder));
+  outline-offset: 0;
+}
 
 .strip-when {
   color: var(--muted);

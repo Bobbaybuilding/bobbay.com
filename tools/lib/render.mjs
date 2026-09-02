@@ -2,6 +2,7 @@
 // fact lives in exactly one place. Rows share one shape: something on the left,
 // a figure on the right, both on a shared baseline.
 import { htmlEscape as e } from './escape.mjs';
+import { kebab } from './slug.mjs';
 
 const fmt = (iso, opts) =>
   new Intl.DateTimeFormat('en-GB', { timeZone: 'UTC', ...opts })
@@ -18,6 +19,10 @@ const dayDate = iso => {
   return `${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
 };
 
+const attr = (name, val) => (val ? ` data-${name}="${e(String(val))}"` : '');
+
+const checkinId = c => kebab(c.id || c.place);
+
 // --- homepage blocks ------------------------------------------------------
 
 export function intro(site) {
@@ -33,37 +38,65 @@ export function lastSeen(site) {
   if (!here) return '';
   const at = here.at;
   const when = dayDate(at);
+  const currentId = checkinId({ place: here.place, at: here.at });
   const size = (here.width && here.height) ? ` width="${here.width}" height="${here.height}"` : '';
   const img = here.image
-    ? `<img src="${e(here.image)}"${size} alt="${e(here.alt || here.place)}">`
-    : '';
+    ? `<img src="${e(here.image)}"${size} alt="${e(here.alt || here.place)}" data-hero-img>`
+    : `<img alt="" data-hero-img hidden>`;
+  const phHidden = here.image ? ' hidden' : '';
   const venue = here.url
     ? `<a class="venue" href="${e(here.url)}" target="_blank" rel="noopener">${e(here.place)}</a>`
     : e(here.place);
   const area = here.area ? `, ${e(here.area)}` : '';
-  return `<div class="scene">
-  <div class="plaque plaque-top">
-    <span>${e(here.city)}</span>
-    <span>Last seen <time datetime="${e(at)}" data-at="${e(at)}">${e(when)}</time></span>
+  const strip = checkinRows(site.checkins, here);
+  return `<div class="last-seen" id="check-ins" data-last-seen-root data-expanded="false" data-current="${e(currentId)}">
+  <div class="scene" data-hero>
+    <div class="plaque plaque-top">
+      <span>${e(here.city)}</span>
+      <span>Last seen <time datetime="${e(at)}" data-at="${e(at)}">${e(when)}</time></span>
+    </div>
+    ${img}
+    <div class="scene-ph" data-hero-ph${phHidden}></div>
+    <button class="plaque plaque-checkins" type="button" data-hero-button aria-expanded="false" aria-label="Show all check-ins">Check-ins</button>
   </div>
-  ${img}
-  <a class="plaque plaque-checkins" href="#check-ins">Check-ins</a>
-</div>
-<p class="caption">Last seen at ${venue}${area}</p>`;
+  <p class="caption" data-hero-caption>Last seen at ${venue}${area}</p>
+  <div class="strip-wrap" data-strip-wrap inert>
+    <div class="strip" data-strip role="region" aria-label="All check-ins" tabindex="-1">
+      <div class="strip-track" data-strip-track>
+${strip}
+      </div>
+    </div>
+    <button class="back-button" type="button" data-back-button>Back</button>
+  </div>
+</div>`;
 }
 
-export function checkinRows(checkins) {
-  if (!checkins?.length) return '<p class="empty">nowhere yet</p>';
-  const sorted = [...checkins].sort((a, b) => b.at.localeCompare(a.at) || a.place.localeCompare(b.place));
-  return `<div class="rows">\n` + sorted.map(c => {
-    const note = c.note ? `<small>${e(c.note)}</small>` : '';
-    const meta = `<span class="meta">${e(dayDate(c.at))}</span>`;
-    if (c.url) {
-      const out = /^https?:/.test(c.url) ? ' target="_blank" rel="noopener"' : '';
-      return `  <a class="row" href="${e(c.url)}"${out}><span>${e(c.place)}${note}</span>${meta}</a>`;
-    }
-    return `  <div class="row"><span>${e(c.place)}${note}</span>${meta}</div>`;
-  }).join('\n') + `\n</div>`;
+// Oldest first so the newest check-in sits rightmost in the strip.
+export function checkinRows(checkins, here = {}) {
+  if (!checkins?.length) return '';
+  const sorted = [...checkins].sort((a, b) => a.at.localeCompare(b.at) || a.place.localeCompare(b.place));
+  return sorted.map(c => {
+    const id = checkinId(c);
+    const isHere = c.place === here.place && c.at === here.at;
+    const image = c.image || (isHere ? here.image : '');
+    const alt = c.alt || (isHere ? here.alt : '') || c.place;
+    const width = c.width || (isHere ? here.width : '');
+    const height = c.height || (isHere ? here.height : '');
+    const area = c.area || (isHere ? here.area : '') || '';
+    const size = (image && width && height) ? ` width="${width}" height="${height}"` : '';
+    const media = image
+      ? `<img src="${e(image)}"${size} alt="${e(alt)}">`
+      : `<span class="strip-ph" aria-hidden="true"></span>`;
+    const place = c.url
+      ? `<a class="strip-place" href="${e(c.url)}" target="_blank" rel="noopener">${e(c.place)}</a>`
+      : `<span class="strip-place">${e(c.place)}</span>`;
+    const note = c.note ? `<span class="strip-note">${e(c.note)}</span>` : '';
+    return `        <figure class="strip-item" data-checkin-id="${e(id)}"${attr('place', c.place)}${attr('at', c.at)}${attr('url', c.url)}${attr('note', c.note)}${attr('area', area)}${attr('image', image)}${attr('alt', image ? alt : '')}${attr('width', image ? width : '')}${attr('height', image ? height : '')}>
+          <p class="strip-when"><time datetime="${e(c.at)}" data-at="${e(c.at)}">${e(dayDate(c.at))}</time></p>
+          <button class="strip-button" type="button" aria-label="View the ${e(c.place)} check-in">${media}</button>
+          <figcaption>${place}${note}</figcaption>
+        </figure>`;
+  }).join('\n');
 }
 
 export function writingRows(posts) {

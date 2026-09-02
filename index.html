@@ -6,7 +6,7 @@
   <title>Bobby Bola</title>
   <meta name="description" content="Studied medicine. Work in fintech. Digital nomadic. London-based.">
   <link rel="alternate" type="application/rss+xml" title="Bobby Bola" href="/feed.xml">
-  <link rel="stylesheet" href="style.css?v=3c6bfa0c">
+  <link rel="stylesheet" href="style.css?v=5845a50a">
   <script>
     // Applied before first paint so a pinned theme never flashes the other one.
     try { const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
@@ -30,6 +30,29 @@
     <span class="motto">My motto is f*ck about and find out.</span>
   </p>
   <!-- generated:intro:end -->
+
+  <!-- generated:lastseen:start -->
+  <div class="scene">
+    <div class="plaque plaque-top">
+      <span>London, UK</span>
+      <span>Last seen <time datetime="2026-09-01" data-at="2026-09-01">1 Sep 2026</time></span>
+    </div>
+    <img src="checkins/kubo.svg" width="900" height="600" alt="Terracotta plaque of Kūbō Garden, Hackney Wick">
+    <a class="plaque plaque-checkins" href="#check-ins">Check-ins</a>
+  </div>
+  <p class="caption">Last seen at <a class="venue" href="https://www.kubogarden.co.uk/" target="_blank" rel="noopener">Kūbō Garden</a>, Hackney Wick</p>
+  <!-- generated:lastseen:end -->
+
+  <section id="check-ins">
+    <h2>Check-ins</h2>
+    <!-- generated:checkins:start -->
+    <div class="rows">
+      <a class="row" href="https://www.kubogarden.co.uk/" target="_blank" rel="noopener"><span>Kūbō Garden<small>Pan-Asian café, Hackney Wick</small></span><span class="meta">1 Sep 2026</span></a>
+      <a class="row" href="https://etude.coffee" target="_blank" rel="noopener"><span>Etude Coffee</span><span class="meta">31 Aug 2026</span></a>
+      <a class="row" href="https://www.instagram.com/farha.london" target="_blank" rel="noopener"><span>Farha</span><span class="meta">30 Aug 2026</span></a>
+    </div>
+    <!-- generated:checkins:end -->
+  </section>
 
   <section>
     <h2>Writing</h2>
@@ -94,6 +117,21 @@
     const next = (root.dataset.theme || system) === 'night' ? 'day' : 'night';
     if (next === system) { delete root.dataset.theme; } else { root.dataset.theme = next; }
     try { next === system ? localStorage.removeItem('theme') : localStorage.setItem('theme', next); } catch (e) {}
+  });
+  // Relative last-seen is client-only. Generated HTML always ships an absolute date.
+  document.querySelectorAll('[data-at]').forEach(el => {
+    const iso = el.getAttribute('data-at');
+    if (!iso) return;
+    const then = new Date(iso.slice(0, 10) + 'T12:00:00Z');
+    if (Number.isNaN(+then)) return;
+    const now = new Date();
+    const n = Math.round(
+      (Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()) -
+       Date.UTC(then.getFullYear(), then.getMonth(), then.getDate())) / 86400000
+    );
+    if (n === 0) el.textContent = 'today';
+    else if (n === 1) el.textContent = 'yesterday';
+    else if (n > 1) el.textContent = n + ' days ago';
   });
 </script>
 

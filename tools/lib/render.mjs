@@ -1,8 +1,11 @@
 // HTML templates. Everything the homepage shows is generated from data/, so a
 // fact lives in exactly one place. Rows share one shape: something on the left,
 // a figure on the right, both on a shared baseline.
+import { readFileSync, existsSync } from 'node:fs';
+import { join } from 'node:path';
 import { htmlEscape as e } from './escape.mjs';
 import { kebab } from './slug.mjs';
+import { ROOT } from './manifest.mjs';
 
 const fmt = (iso, opts) =>
   new Intl.DateTimeFormat('en-GB', { timeZone: 'UTC', ...opts })
@@ -23,6 +26,32 @@ const attr = (name, val) => (val ? ` data-${name}="${e(String(val))}"` : '');
 
 const checkinId = c => kebab(c.id || c.place);
 
+const jpegUriCache = new Map();
+
+function jpegFromSvg(svg) {
+  const m = String(svg).match(/data:image\/jpeg;base64,([A-Za-z0-9+/=\s]+)/i);
+  if (!m) return '';
+  return `data:image/jpeg;base64,${m[1].replace(/\s+/g, '')}`;
+}
+
+// GitHub MCP cannot reliably push binary JPEGs, so the page inlines them.
+function jpegDataUri(relPath) {
+  if (!relPath) return '';
+  if (String(relPath).startsWith('data:')) return relPath;
+  if (jpegUriCache.has(relPath)) return jpegUriCache.get(relPath);
+  const jpgAbs = join(ROOT, relPath.replace(/\.svg$/i, '.jpg'));
+  const svgAbs = join(ROOT, relPath.replace(/\.jpe?g$/i, '.svg'));
+  let uri = relPath;
+  if (existsSync(jpgAbs) && /\.jpe?g$/i.test(jpgAbs)) {
+    uri = `data:image/jpeg;base64,${readFileSync(jpgAbs).toString('base64')}`;
+  } else if (existsSync(svgAbs)) {
+    uri = jpegFromSvg(readFileSync(svgAbs, 'utf8')) || uri;
+  }
+  jpegUriCache.set(relPath, uri);
+  return uri;
+}
+
+
 // --- homepage blocks ------------------------------------------------------
 
 export function intro(site) {
@@ -40,8 +69,9 @@ export function lastSeen(site) {
   const when = dayDate(at);
   const currentId = checkinId({ place: here.place, at: here.at });
   const size = (here.width && here.height) ? ` width="${here.width}" height="${here.height}"` : '';
-  const img = here.image
-    ? `<img src="${e(here.image)}"${size} alt="${e(here.alt || here.place)}" data-hero-img>`
+  const heroSrc = here.image ? jpegDataUri(here.image) : '';
+  const img = heroSrc
+    ? `<img src="${e(heroSrc)}"${size} alt="${e(here.alt || here.place)}" data-hero-img>`
     : `<img alt="" data-hero-img hidden>`;
   const phHidden = here.image ? ' hidden' : '';
   const venue = here.url
@@ -78,14 +108,14 @@ export function checkinRows(checkins, here = {}) {
   return sorted.map(c => {
     const id = checkinId(c);
     const isHere = c.place === here.place && c.at === here.at;
-    const image = c.image || (isHere ? here.image : '');
+    const imagePath = c.image || (isHere ? here.image : '');
+    const image = imagePath ? jpegDataUri(imagePath) : '';
     const alt = c.alt || (isHere ? here.alt : '') || c.place;
-    const width = c.width || (isHere ? here.width : '');
-    const height = c.height || (isHere ? here.height : '');
+    const width = c.width || 480;
+    const height = c.height || 360;
     const area = c.area || (isHere ? here.area : '') || '';
-    const size = (image && width && height) ? ` width="${width}" height="${height}"` : '';
     const media = image
-      ? `<img src="${e(image)}"${size} alt="${e(alt)}">`
+      ? `<img class="strip-plaque" src="${e(image)}" width="${width}" height="${height}" alt="${e(alt)}">`
       : `<span class="strip-ph" aria-hidden="true"></span>`;
     const place = c.url
       ? `<a class="strip-place" href="${e(c.url)}" target="_blank" rel="noopener">${e(c.place)}</a>`
@@ -93,7 +123,7 @@ export function checkinRows(checkins, here = {}) {
     const note = c.note ? `<span class="strip-note">${e(c.note)}</span>` : '';
     return `        <figure class="strip-item" data-checkin-id="${e(id)}"${attr('place', c.place)}${attr('at', c.at)}${attr('url', c.url)}${attr('note', c.note)}${attr('area', area)}${attr('image', image)}${attr('alt', image ? alt : '')}${attr('width', image ? width : '')}${attr('height', image ? height : '')}>
           <p class="strip-when"><time datetime="${e(c.at)}" data-at="${e(c.at)}">${e(dayDate(c.at))}</time></p>
-          <button class="strip-button" type="button" aria-label="View the ${e(c.place)} check-in">${media}</button>
+          ${media}
           <figcaption>${place}${note}</figcaption>
         </figure>`;
   }).join('\n');

@@ -12,9 +12,9 @@
     "kind": "Pan-Asian café",
     "address": "13 Copper Street, E20 3AW",
     "url": "https://www.kubogarden.co.uk/",
-    "image": "checkins/kubo.svg",
-    "width": 900,
-    "height": 600,
+    "image": "checkins/kubo.jpg",
+    "width": 480,
+    "height": 360,
     "alt": "Terracotta plaque of Kūbō Garden, Hackney Wick"
   },
   "checkins": [
@@ -24,7 +24,7 @@
       "url": "https://unlock2021.me/",
       "note": "Pizza & arts space, Hackney Wick",
       "area": "Hackney Wick",
-      "image": "checkins/unlock.svg"
+      "image": "checkins/unlock.jpg"
     },
     {
       "place": "Farha",
@@ -32,7 +32,7 @@
       "url": "https://www.instagram.com/farha.london",
       "note": "Middle Eastern bakery, Leyton",
       "area": "Leyton",
-      "image": "checkins/farha.svg"
+      "image": "checkins/farha.jpg"
     },
     {
       "place": "Etude Coffee",
@@ -40,7 +40,7 @@
       "url": "https://etude.coffee",
       "note": "Specialty coffee, Crystal Palace",
       "area": "Crystal Palace",
-      "image": "checkins/etude.svg"
+      "image": "checkins/etude.jpg"
     },
     {
       "place": "Kūbō Garden",
@@ -48,7 +48,7 @@
       "url": "https://www.kubogarden.co.uk/",
       "note": "Pan-Asian café, Hackney Wick",
       "area": "Hackney Wick",
-      "image": "checkins/kubo.svg"
+      "image": "checkins/kubo.jpg"
     },
     {
       "place": "Tower Bridge Collective",
@@ -56,7 +56,7 @@
       "url": "https://towerbridgecollective.co.uk/",
       "note": "Food hall, Shad Thames",
       "area": "Shad Thames",
-      "image": "checkins/tbc.svg"
+      "image": "checkins/tbc.jpg"
     }
   ],
   "work": [

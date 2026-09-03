@@ -260,7 +260,7 @@ img[hidden] { display: none !important; }
   width: 100%;
   flex-shrink: 0;
   overflow-x: auto;
-  overflow-y: hidden;
+  overflow-y: visible;
   outline: none;
 }
 .strip::-webkit-scrollbar { display: none; }
@@ -294,19 +294,16 @@ img[hidden] { display: none !important; }
   appearance: none;
   -webkit-appearance: none;
 }
-/* Empty / broken plaques stay terracotta in both themes so they do not
-   vanish against --bg on night. aspect-ratio plus min-height reserve a
-   real box even when an image fails to load. */
-.strip-item img,
-.strip-ph {
+.strip-plaque, .strip-item img, .strip-ph {
   width: 100%;
   height: auto;
   aspect-ratio: 3 / 2;
-  min-height: 9rem;
   display: block;
   object-fit: contain;
   background: #C46A3A;
+  border: 0;
 }
+.strip-plaque, .strip-item img { cursor: zoom-in; }
 .strip-ph {
   background: #C46A3A;
   box-shadow: inset 0 0 0 1px color-mix(in srgb, #EFE7D7 28%, #9E3B2F);

@@ -1,11 +1,8 @@
 // HTML templates. Everything the homepage shows is generated from data/, so a
 // fact lives in exactly one place. Rows share one shape: something on the left,
 // a figure on the right, both on a shared baseline.
-import { readFileSync, existsSync } from 'node:fs';
-import { join } from 'node:path';
 import { htmlEscape as e } from './escape.mjs';
 import { kebab } from './slug.mjs';
-import { ROOT } from './manifest.mjs';
 
 const fmt = (iso, opts) =>
   new Intl.DateTimeFormat('en-GB', { timeZone: 'UTC', ...opts })
@@ -26,29 +23,9 @@ const attr = (name, val) => (val ? ` data-${name}="${e(String(val))}"` : '');
 
 const checkinId = c => kebab(c.id || c.place);
 
-const jpegUriCache = new Map();
-
-function jpegFromSvg(svg) {
-  const m = String(svg).match(/data:image\/jpeg;base64,([A-Za-z0-9+/=\s]+)/i);
-  if (!m) return '';
-  return `data:image/jpeg;base64,${m[1].replace(/\s+/g, '')}`;
-}
-
-// GitHub MCP cannot reliably push binary JPEGs, so the page inlines them.
+// Paths stay as checkins/*.svg — no binary inlining (SVG plaques already embed JPEG).
 function jpegDataUri(relPath) {
-  if (!relPath) return '';
-  if (String(relPath).startsWith('data:')) return relPath;
-  if (jpegUriCache.has(relPath)) return jpegUriCache.get(relPath);
-  const jpgAbs = join(ROOT, relPath.replace(/\.svg$/i, '.jpg'));
-  const svgAbs = join(ROOT, relPath.replace(/\.jpe?g$/i, '.svg'));
-  let uri = relPath;
-  if (existsSync(jpgAbs) && /\.jpe?g$/i.test(jpgAbs)) {
-    uri = `data:image/jpeg;base64,${readFileSync(jpgAbs).toString('base64')}`;
-  } else if (existsSync(svgAbs)) {
-    uri = jpegFromSvg(readFileSync(svgAbs, 'utf8')) || uri;
-  }
-  jpegUriCache.set(relPath, uri);
-  return uri;
+  return relPath || '';
 }
 
 
@@ -115,7 +92,7 @@ export function checkinRows(checkins, here = {}) {
     const height = c.height || 360;
     const area = c.area || (isHere ? here.area : '') || '';
     const media = image
-      ? `<img class="strip-plaque" src="${e(image)}" width="${width}" height="${height}" alt="${e(alt)}">`
+      ? `<button class="strip-button" type="button" aria-label="View the ${e(c.place)} check-in"><img class="strip-plaque" src="${e(image)}" width="${width}" height="${height}" alt="${e(alt)}"></button>`
       : `<span class="strip-ph" aria-hidden="true"></span>`;
     const place = c.url
       ? `<a class="strip-place" href="${e(c.url)}" target="_blank" rel="noopener">${e(c.place)}</a>`

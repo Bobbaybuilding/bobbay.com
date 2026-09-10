@@ -5,17 +5,17 @@
   "bio": "Studied medicine. Work in fintech. Digital nomadic. London-based. I like learning and being experimental with exercise, food and my career.",
   "motto": "My motto is f*ck about and find out.",
   "here": {
-    "city": "London, UK",
-    "at": "2026-09-01",
-    "place": "Kūbō Garden",
-    "area": "Hackney Wick",
-    "kind": "Pan-Asian café",
-    "address": "13 Copper Street, E20 3AW",
-    "url": "https://www.kubogarden.co.uk/",
-    "image": "checkins/kubo.jpg",
+    "city": "San Francisco, CA",
+    "at": "2026-09-07",
+    "place": "Heyma",
+    "area": "SoMa",
+    "kind": "Yemeni coffee & brunch",
+    "address": "248 9th St",
+    "url": "https://www.heymacoffeeca.com/",
+    "image": "checkins/heyma.svg",
     "width": 480,
     "height": 360,
-    "alt": "Terracotta plaque of Kūbō Garden, Hackney Wick"
+    "alt": "Terracotta plaque of Heyma, SoMa San Francisco"
   },
   "checkins": [
     {
@@ -24,7 +24,7 @@
       "url": "https://unlock2021.me/",
       "note": "Pizza & arts space, Hackney Wick",
       "area": "Hackney Wick",
-      "image": "checkins/unlock.jpg"
+      "image": "checkins/unlock.svg"
     },
     {
       "place": "Farha",
@@ -32,7 +32,7 @@
       "url": "https://www.instagram.com/farha.london",
       "note": "Middle Eastern bakery, Leyton",
       "area": "Leyton",
-      "image": "checkins/farha.jpg"
+      "image": "checkins/farha.svg"
     },
     {
       "place": "Etude Coffee",
@@ -40,7 +40,7 @@
       "url": "https://etude.coffee",
       "note": "Specialty coffee, Crystal Palace",
       "area": "Crystal Palace",
-      "image": "checkins/etude.jpg"
+      "image": "checkins/etude.svg"
     },
     {
       "place": "Kūbō Garden",
@@ -48,7 +48,7 @@
       "url": "https://www.kubogarden.co.uk/",
       "note": "Pan-Asian café, Hackney Wick",
       "area": "Hackney Wick",
-      "image": "checkins/kubo.jpg"
+      "image": "checkins/kubo.svg"
     },
     {
       "place": "Tower Bridge Collective",
@@ -56,7 +56,31 @@
       "url": "https://towerbridgecollective.co.uk/",
       "note": "Food hall, Shad Thames",
       "area": "Shad Thames",
-      "image": "checkins/tbc.jpg"
+      "image": "checkins/tbc.svg"
+    },
+    {
+      "place": "Elaichi Co",
+      "at": "2026-09-05",
+      "url": "https://www.elaichico.com/pages/visit-us-sf",
+      "note": "Chai house, SoMa",
+      "area": "SoMa",
+      "image": "checkins/elaichi.svg"
+    },
+    {
+      "place": "Piccino Coffee Bar",
+      "at": "2026-09-06",
+      "url": "https://www.piccinocoffeebar.com/",
+      "note": "Espresso bar, Dogpatch",
+      "area": "Dogpatch",
+      "image": "checkins/piccino.svg"
+    },
+    {
+      "place": "Heyma",
+      "at": "2026-09-07",
+      "url": "https://www.heymacoffeeca.com/",
+      "note": "Yemeni coffee, SoMa",
+      "area": "SoMa",
+      "image": "checkins/heyma.svg"
     }
   ],
   "work": [
